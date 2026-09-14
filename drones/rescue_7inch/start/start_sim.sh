@@ -27,6 +27,7 @@ SIM_PATTERNS=(
   "parameter_bridge.*$DRONE_DIR/start/camera_bridge.yaml"
   "parameter_bridge.*$PROJECT_DIR/camera_bridge.yaml"
   'camera_view.py'
+  "${DRONE_DIR}/start/wind_control.sh"
   'qr_gcs_receiver.py'
   'ros2 run rescue_control qr_detector'
   'ros2 run rescue_control geotag_mission'
@@ -67,6 +68,24 @@ echo "World: $DRONE_DIR/world/rescue_7inch.sdf"
 echo "JSON: 127.0.0.1:9003"
 echo "MAVLink: 14560 QGC / 14561 MAVROS"
 
+if [[ $# -ge 3 ]]; then
+  WIND_STRENGTH="$1"
+  WIND_DIRECTION="$2"
+  WIND_DURATION="$3"
+else
+  read -r -p "Wind strength in m/s [0]: " WIND_STRENGTH
+  read -r -p "Wind direction in degrees, 0=+X, 90=+Y [0]: " WIND_DIRECTION
+  read -r -p "Wind duration in seconds [60]: " WIND_DURATION
+  WIND_STRENGTH="${WIND_STRENGTH:-0}"
+  WIND_DIRECTION="${WIND_DIRECTION:-0}"
+  WIND_DURATION="${WIND_DURATION:-60}"
+fi
+
+if ! [[ "$WIND_STRENGTH" =~ ^[0-9]+([.][0-9]+)?$ && "$WIND_DIRECTION" =~ ^-?[0-9]+([.][0-9]+)?$ && "$WIND_DURATION" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+  echo "Invalid wind input. Use numeric strength, direction, and duration."
+  exit 2
+fi
+
 cat > "$SESSION" <<SESSION_EOF
 new_tab
 title Gazebo
@@ -97,6 +116,11 @@ new_tab
 title Camera View
 cd ~
 launch --type=os-window --title="Rescue 7-inch - Camera View" bash -lc 'sleep 12; source /opt/ros/humble/setup.bash; python3 "$PROJECT_DIR/vision/camera_view.py"; exec bash'
+
+new_tab
+title Wind Controller
+cd ~
+launch --type=os-window --title="Rescue 7-inch - Wind Controller" bash -lc 'sleep 10; "$DRONE_DIR/start/wind_control.sh" "$WIND_STRENGTH" "$WIND_DIRECTION" "$WIND_DURATION"; exec bash'
 
 new_tab
 title GCS

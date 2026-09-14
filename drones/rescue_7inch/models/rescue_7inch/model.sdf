@@ -4,6 +4,8 @@
   <self_collide>false</self_collide>
     <pose>0 0 0 0 0 0</pose>
     <link name='base_link'>
+      <!-- Required for Gazebo WindEffects to apply physical wind force. -->
+      <enable_wind>true</enable_wind>
       <velocity_decay>
         <linear>0.0</linear>
         <angular>0.0</angular>
