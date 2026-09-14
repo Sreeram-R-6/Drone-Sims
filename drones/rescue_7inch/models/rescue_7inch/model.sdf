@@ -588,6 +588,53 @@
       </axis>
     </joint>
 
+    <!-- First-pass 7-inch propeller aerodynamics. Coefficients are simulation
+         assumptions and must be calibrated against measured thrust data. -->
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp><forward>0 1 0</forward><upward>0 0 1</upward><link_name>rotor_0</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp><forward>0 -1 0</forward><upward>0 0 1</upward><link_name>rotor_0</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp><forward>0 1 0</forward><upward>0 0 1</upward><link_name>rotor_1</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp><forward>0 -1 0</forward><upward>0 0 1</upward><link_name>rotor_1</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp><forward>0 -1 0</forward><upward>0 0 1</upward><link_name>rotor_2</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp><forward>0 1 0</forward><upward>0 0 1</upward><link_name>rotor_2</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>0.084 0 0</cp><forward>0 -1 0</forward><upward>0 0 1</upward><link_name>rotor_3</link_name>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.3</a0><alpha_stall>1.4</alpha_stall><cla>4.25</cla><cda>0.10</cda>
+      <cla_stall>-0.025</cla_stall><area>0.002</area><air_density>1.2041</air_density>
+      <cp>-0.084 0 0</cp><forward>0 1 0</forward><upward>0 0 1</upward><link_name>rotor_3</link_name>
+    </plugin>
+    <plugin filename="gz-sim-apply-joint-force-system" name="gz::sim::systems::ApplyJointForce"><joint_name>rotor_0_joint</joint_name></plugin>
+    <plugin filename="gz-sim-apply-joint-force-system" name="gz::sim::systems::ApplyJointForce"><joint_name>rotor_1_joint</joint_name></plugin>
+    <plugin filename="gz-sim-apply-joint-force-system" name="gz::sim::systems::ApplyJointForce"><joint_name>rotor_2_joint</joint_name></plugin>
+    <plugin filename="gz-sim-apply-joint-force-system" name="gz::sim::systems::ApplyJointForce"><joint_name>rotor_3_joint</joint_name></plugin>
+
     <plugin name="ArduPilotPlugin"
       filename="ArduPilotPlugin">
 

@@ -22,4 +22,12 @@ trap cleanup INT TERM EXIT
 
 sleep 3
 cd "$HOME/ardupilot"
-./Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON:127.0.0.1:9003 --console --map --out=127.0.0.1:14560 --out=127.0.0.1:14561
+./Tools/autotest/sim_vehicle.py \
+  -v ArduCopter \
+  -f gazebo-iris \
+  --model JSON:127.0.0.1 \
+  --no-rebuild \
+  --add-param-file="$DRONE_DIR/config/rescue_7inch.parm" \
+  --sitl-instance-args="--sim-port-out=9003" \
+  --out=127.0.0.1:14560 \
+  --out=127.0.0.1:14561
