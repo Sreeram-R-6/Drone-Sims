@@ -32,7 +32,7 @@ publish_wind() {
   local x="$1"
   local y="$2"
   gz topic -t "$WIND_TOPIC" -m gz.msgs.Wind \
-    -p "linear_velocity: {x: ${x}, y: ${y}, z: 0}" \
+    -p "linear_velocity: {x: ${x}, y: ${y}, z: 0}, enable_wind: true" \
     >/dev/null 2>&1 || true
 }
 

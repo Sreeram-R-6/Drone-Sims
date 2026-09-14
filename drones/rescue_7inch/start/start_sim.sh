@@ -67,6 +67,7 @@ echo "[2/2] Starting fresh rescue_7inch simulation..."
 echo "World: $DRONE_DIR/world/rescue_7inch.sdf"
 echo "JSON: 127.0.0.1:9003"
 echo "MAVLink: 14560 QGC / 14561 MAVROS"
+echo "Wind starts after a 60-second initialization delay"
 
 if [[ $# -ge 5 ]]; then
   WIND_STRENGTH="$1"
@@ -126,7 +127,7 @@ launch --type=os-window --title="Rescue 7-inch - Camera View" bash -lc 'sleep 12
 new_tab
 title Wind Controller
 cd ~
-launch --type=os-window --title="Rescue 7-inch - Wind Controller" bash -lc 'sleep 10; "$DRONE_DIR/start/wind_control.sh" "$WIND_STRENGTH" "$WIND_DIRECTION" "$WIND_STRENGTH_RANDOMNESS" "$WIND_DIRECTION_RANDOMNESS" "$WIND_DURATION"; exec bash'
+launch --type=os-window --title="Rescue 7-inch - Wind Controller" bash -lc 'echo "Waiting 60 seconds for SITL/GPS/EKF initialization..."; sleep 60; "$DRONE_DIR/start/wind_control.sh" "$WIND_STRENGTH" "$WIND_DIRECTION" "$WIND_STRENGTH_RANDOMNESS" "$WIND_DIRECTION_RANDOMNESS" "$WIND_DURATION"; exec bash'
 
 new_tab
 title GCS
