@@ -12,6 +12,7 @@ venv/
 .env
 *.swp
 *~
+*.backup-*
 .DS_Store
 
 # Local GitHub/CLI and machine-specific metadata
