@@ -31,6 +31,21 @@ The default world starts calm while the physical wind system is loaded. Wind
 profiles should be tested in this order: calm, 5 m/s, 5 m/s with gusts, then
 10 m/s. The existing Iris stack is not changed by this package.
 
+## Wind input
+
+The launcher asks for base strength, direction, strength randomness, direction
+randomness, and duration. It can also be called non-interactively:
+
+```bash
+cd ~/drone_project
+drones/rescue_7inch/start/start_sim.sh 10 90 10 20 60
+```
+
+This means 10 m/s base wind, direction 90 degrees, +/-10 m/s strength
+variation, +/-20 degrees direction variation, for 60 seconds. The controller
+publishes changing physical wind vectors to Gazebo and returns to calm at the
+end.
+
 ## Ports
 
 | Function | Port |
@@ -46,5 +61,5 @@ cd ~/drone_project
 drones/rescue_7inch/start/start_sim.sh
 ```
 
-The launcher currently starts Gazebo and ArduCopter only. MAVROS, camera
-bridge, QR, and mission processes remain separate validation stages.
+The launcher starts the complete isolated Gazebo, ArduCopter, MAVProxy,
+MAVROS, camera, GCS, QR, mission, and wind-controller stack.

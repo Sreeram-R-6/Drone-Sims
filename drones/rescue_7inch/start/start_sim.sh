@@ -68,20 +68,26 @@ echo "World: $DRONE_DIR/world/rescue_7inch.sdf"
 echo "JSON: 127.0.0.1:9003"
 echo "MAVLink: 14560 QGC / 14561 MAVROS"
 
-if [[ $# -ge 3 ]]; then
+if [[ $# -ge 5 ]]; then
   WIND_STRENGTH="$1"
   WIND_DIRECTION="$2"
-  WIND_DURATION="$3"
+  WIND_STRENGTH_RANDOMNESS="$3"
+  WIND_DIRECTION_RANDOMNESS="$4"
+  WIND_DURATION="$5"
 else
   read -r -p "Wind strength in m/s [0]: " WIND_STRENGTH
   read -r -p "Wind direction in degrees, 0=+X, 90=+Y [0]: " WIND_DIRECTION
+  read -r -p "Wind strength randomness (+/- m/s) [0]: " WIND_STRENGTH_RANDOMNESS
+  read -r -p "Wind direction randomness (+/- degrees) [0]: " WIND_DIRECTION_RANDOMNESS
   read -r -p "Wind duration in seconds [60]: " WIND_DURATION
   WIND_STRENGTH="${WIND_STRENGTH:-0}"
   WIND_DIRECTION="${WIND_DIRECTION:-0}"
+  WIND_STRENGTH_RANDOMNESS="${WIND_STRENGTH_RANDOMNESS:-0}"
+  WIND_DIRECTION_RANDOMNESS="${WIND_DIRECTION_RANDOMNESS:-0}"
   WIND_DURATION="${WIND_DURATION:-60}"
 fi
 
-if ! [[ "$WIND_STRENGTH" =~ ^[0-9]+([.][0-9]+)?$ && "$WIND_DIRECTION" =~ ^-?[0-9]+([.][0-9]+)?$ && "$WIND_DURATION" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
+if ! [[ "$WIND_STRENGTH" =~ ^[0-9]+([.][0-9]+)?$ && "$WIND_DIRECTION" =~ ^-?[0-9]+([.][0-9]+)?$ && "$WIND_STRENGTH_RANDOMNESS" =~ ^[0-9]+([.][0-9]+)?$ && "$WIND_DIRECTION_RANDOMNESS" =~ ^[0-9]+([.][0-9]+)?$ && "$WIND_DURATION" =~ ^[0-9]+([.][0-9]+)?$ ]]; then
   echo "Invalid wind input. Use numeric strength, direction, and duration."
   exit 2
 fi
@@ -120,7 +126,7 @@ launch --type=os-window --title="Rescue 7-inch - Camera View" bash -lc 'sleep 12
 new_tab
 title Wind Controller
 cd ~
-launch --type=os-window --title="Rescue 7-inch - Wind Controller" bash -lc 'sleep 10; "$DRONE_DIR/start/wind_control.sh" "$WIND_STRENGTH" "$WIND_DIRECTION" "$WIND_DURATION"; exec bash'
+launch --type=os-window --title="Rescue 7-inch - Wind Controller" bash -lc 'sleep 10; "$DRONE_DIR/start/wind_control.sh" "$WIND_STRENGTH" "$WIND_DIRECTION" "$WIND_STRENGTH_RANDOMNESS" "$WIND_DIRECTION_RANDOMNESS" "$WIND_DURATION"; exec bash'
 
 new_tab
 title GCS
