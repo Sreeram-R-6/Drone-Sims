@@ -7,7 +7,9 @@
 set -u
 
 WORLD_NAME="rescue_7inch_disaster"
-WIND_TOPIC="/world/${WORLD_NAME}/wind_info"
+# WindEffects subscribes to /wind. /wind_info is a query service, not a
+# command topic.
+WIND_TOPIC="/world/${WORLD_NAME}/wind"
 STRENGTH="${1:-}"
 DIRECTION="${2:-}"
 STRENGTH_RANDOMNESS="${3:-}"
