@@ -15,6 +15,10 @@ SIM_PATTERNS=(
   "$DRONE_DIR/config/rescue_7inch.parm"
   "$PROJECT_DIR/worlds/iris_rescue.sdf"
   "$PROJECT_DIR/start_sitl.sh"
+  'gz sim'
+  'gzserver'
+  'gz-gui'
+  'gz-sim-server'
   'arducopter.*--sim-port-out=9003'
   'mavproxy.py.*14560'
   'mavproxy.py.*14550'
