@@ -2,6 +2,7 @@
 
 # Publish a time-limited, changing physical wind profile to Gazebo Harmonic.
 # Direction is degrees in the Gazebo XY plane: 0=+X, 90=+Y.
+# Each new wind vector is applied abruptly every four seconds.
 
 set -u
 
@@ -58,7 +59,7 @@ $(awk -v s="$STRENGTH" -v deg="$DIRECTION" -v sr="$STRENGTH_RANDOMNESS" -v dr="$
 EOF
   publish_wind "$x" "$y"
   echo "Wind: x=${x} y=${y} m/s"
-  sleep 0.5
+  sleep 4
 done
 
 calm

@@ -43,8 +43,8 @@ drones/rescue_7inch/start/start_sim.sh 10 90 10 20 60
 
 This means 10 m/s base wind, direction 90 degrees, +/-10 m/s strength
 variation, +/-20 degrees direction variation, for 60 seconds. The controller
-publishes changing physical wind vectors to Gazebo and returns to calm at the
-end.
+publishes a new physical wind vector every four seconds with an abrupt change,
+then returns to calm at the end.
 
 ## Ports
 
